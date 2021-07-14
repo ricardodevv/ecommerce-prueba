@@ -1,7 +1,9 @@
+import React, { useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../pictures/dogbrown.png";
+import { ItemsContext } from "./_app";
 
 const HomeStyled = styled.div`
   width: 100%;
@@ -42,14 +44,34 @@ const HomeStyled = styled.div`
     width: 20%;
   }
 
-  .grid_layout {
+  .shop_container {
     border: green 2px solid;
     flex: 1;
     height: 50em;
   }
+
+  #grid_layout {
+    margin: 1em auto;
+    box-sizing: border-box;
+
+    #card_container {
+      border: 1px black solid;
+    }
+
+    #card {
+      border: 1px blue solid;
+      height: 20em;
+    }
+
+    .image_container {
+      height: 75%;
+    }
+  }
 `;
 
 const Home = () => {
+  const contextStorage = useContext(ItemsContext);
+
   return (
     <HomeStyled>
       <div className="main_background">
@@ -69,7 +91,32 @@ const Home = () => {
       </div>
       <div id="container" className="p-d-flex p-flex-column p-flex-md-row">
         <div id="filter_section" className="p-d-inline-flex"></div>
-        <div className="grid_layout"></div>
+        <div className="shop_container">
+          <h2>Shop</h2>
+          <div id="grid_layout" className="p-grid">
+            {
+              <ItemsContext.Consumer>
+                {(contextStorage) =>
+                  contextStorage.items.map((item) => (
+                    <div
+                      id="card_container"
+                      className="p-sm-12 p-md-6 p-lg-3"
+                      key={item.id}
+                    >
+                      <div id="card" className="p-d-flex p-flex-column">
+                        <div className="image_container">
+                          {/*<Image src={} alt="item image" layout="fill" />*/}
+                        </div>
+                        <div className="name">{item.name}</div>
+                        <div className="valor">{`precio: ${item.valor}$`}</div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </ItemsContext.Consumer>
+            }
+          </div>
+        </div>
       </div>
     </HomeStyled>
   );
