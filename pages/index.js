@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../pictures/dogbrown.png";
+import food from "../pictures/dog-food.jpg";
 import { ItemsContext } from "./_app";
 
 const HomeStyled = styled.div`
@@ -47,31 +48,50 @@ const HomeStyled = styled.div`
   .shop_container {
     border: green 2px solid;
     flex: 1;
-    height: 50em;
   }
 
   #grid_layout {
     margin: 1em auto;
     box-sizing: border-box;
 
-    #card_container {
-      border: 1px black solid;
+    @media screen and (max-width: 768px) {
+      justify-content: center;
     }
 
-    #card {
-      border: 1px blue solid;
-      height: 20em;
+    #card_container {
+      transition: 0.3s;
+      max-width: 17em;
+      min-width: 15em;
+
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
     }
 
     .image_container {
-      height: 75%;
+      margin: auto;
+    }
+
+    .card_details {
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      .name,
+      .price {
+        flex: 1;
+      }
+
+      .price {
+        color: #00b700;
+        font-size: x-large;
+      }
     }
   }
 `;
 
 const Home = () => {
-  const contextStorage = useContext(ItemsContext);
-
   return (
     <HomeStyled>
       <div className="main_background">
@@ -100,15 +120,17 @@ const Home = () => {
                   contextStorage.items.map((item) => (
                     <div
                       id="card_container"
-                      className="p-sm-12 p-md-6 p-lg-3"
+                      className="p-col-12 p-md-6 p-lg-3"
                       key={item.id}
                     >
                       <div id="card" className="p-d-flex p-flex-column">
                         <div className="image_container">
-                          {/*<Image src={} alt="item image" layout="fill" />*/}
+                          <Image src={food} alt="item image" />
                         </div>
-                        <div className="name">{item.name}</div>
-                        <div className="valor">{`precio: ${item.valor}$`}</div>
+                        <div className="card_details">
+                          <h3 className="name">{item.name}</h3>
+                          <h3 className="price">{`${item.valor}$`}</h3>
+                        </div>
                       </div>
                     </div>
                   ))

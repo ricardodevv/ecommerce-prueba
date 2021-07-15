@@ -2,31 +2,31 @@
   "items": [
     {
       "id": 1,
-      "name": "collar resistente",
+      "name": "Collar resistente",
       "valor": 15,
       "tipo": "perros"
     },
     {
       "id": 2,
-      "name": "comida para gatos",
+      "name": "Comida para gatos",
       "valor": 10,
       "tipo": "gatos"
     },
     {
       "id": 3,
-      "name": "dog chow 4Kg",
+      "name": "Dog chow 4Kg",
       "valor": 20,
       "tipo": "perros"
     },
     {
       "id": 4,
-      "name": "cat chow 4Kg",
+      "name": "Cat chow 4Kg",
       "valor": 25,
       "tipo": "gatos"
     },
     {
       "id": 5,
-      "name": "dog toy",
+      "name": "Dog toy",
       "valor": 30,
       "tipo": "perros"
     }
