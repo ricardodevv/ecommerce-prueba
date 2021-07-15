@@ -2,33 +2,38 @@
   "items": [
     {
       "id": 1,
-      "name": "Collar resistente",
-      "valor": 15,
-      "tipo": "perros"
+      "name": "Cat chow 10kg",
+      "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
+      "price": 15,
+      "type": "cats"
     },
     {
       "id": 2,
-      "name": "Comida para gatos",
-      "valor": 10,
-      "tipo": "gatos"
+      "name": "Cat toy",
+      "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
+      "price": 10,
+      "type": "cats"
     },
     {
       "id": 3,
       "name": "Dog chow 4Kg",
-      "valor": 20,
-      "tipo": "perros"
+      "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
+      "price": 20,
+      "type": "dogs"
     },
     {
       "id": 4,
       "name": "Cat chow 4Kg",
-      "valor": 25,
-      "tipo": "gatos"
+      "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
+      "price": 25,
+      "type": "cats"
     },
     {
       "id": 5,
       "name": "Dog toy",
-      "valor": 30,
-      "tipo": "perros"
+      "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
+      "price": 30,
+      "type": "dogs"
     }
   ]
 }

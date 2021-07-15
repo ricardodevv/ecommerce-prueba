@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
   const [items, setItems] = useState([]);
   const [searchItem, setsearchItem] = useState("");
   const [itemFounded, setitemFounded] = useState([]);
+  const [cartItems, setcartItems] = useState([]);
 
   useEffect(() => {
     itemService.getItems().then((result) => setItems(result.data));
@@ -28,8 +29,10 @@ function MyApp({ Component, pageProps }) {
     items,
     searchItem,
     itemFounded,
+    cartItems,
     setsearchItem,
     setitemFounded,
+    setcartItems,
     findItem,
   };
 

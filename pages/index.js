@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../pictures/dogbrown.png";
 import food from "../pictures/dog-food.jpg";
 import { ItemsContext } from "./_app";
+import Link from "next/link";
 
 const HomeStyled = styled.div`
   width: 100%;
@@ -94,6 +94,8 @@ const HomeStyled = styled.div`
 const Home = () => {
   return (
     <HomeStyled>
+      {/* Main home section */}
+
       <div className="main_background">
         <div className="main_container">
           <span className="main_text">
@@ -109,6 +111,9 @@ const Home = () => {
           </span>
         </div>
       </div>
+
+      {/* Shop section */}
+
       <div id="container" className="p-d-flex p-flex-column p-flex-md-row">
         <div id="filter_section" className="p-d-inline-flex"></div>
         <div className="shop_container">
@@ -118,21 +123,26 @@ const Home = () => {
               <ItemsContext.Consumer>
                 {(contextStorage) =>
                   contextStorage.items.map((item) => (
-                    <div
-                      id="card_container"
-                      className="p-col-12 p-md-6 p-lg-3"
-                      key={item.id}
+                    <Link
+                      href="/items/[id]/[item]"
+                      as={`/items/${item.id}/${item.name}`}
                     >
-                      <div id="card" className="p-d-flex p-flex-column">
-                        <div className="image_container">
-                          <Image src={food} alt="item image" />
-                        </div>
-                        <div className="card_details">
-                          <h3 className="name">{item.name}</h3>
-                          <h3 className="price">{`${item.valor}$`}</h3>
+                      <div
+                        id="card_container"
+                        className="p-col-12 p-md-6 p-lg-3"
+                        key={item.id}
+                      >
+                        <div id="card" className="p-d-flex p-flex-column">
+                          <div className="image_container">
+                            <Image src={food} alt="item image" />
+                          </div>
+                          <div className="card_details">
+                            <h3 className="name">{item.name}</h3>
+                            <h3 className="price">{`${item.price}$`}</h3>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))
                 }
               </ItemsContext.Consumer>
