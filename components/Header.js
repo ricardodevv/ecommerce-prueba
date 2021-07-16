@@ -73,6 +73,9 @@ const NavigationMenu = styled.ul`
 const Header = () => {
   const [visible, setVisible] = useState(false);
 
+  const { setsearchItem, setitemFounded, findItem, searchItem, itemFounded } =
+    useContext(ItemsContext);
+
   const handleSearch = (
     e,
     setsearchItem,
@@ -94,41 +97,28 @@ const Header = () => {
           </Link>
         </div>
 
-        <ItemsContext.Consumer>
-          {(contextStorage) => {
-            const {
-              setsearchItem,
-              setitemFounded,
-              findItem,
-              searchItem,
-              itemFounded,
-            } = contextStorage;
-            return (
-              <SearchBar className="p-input-icon-left">
-                <i className="pi pi-search" />
-                <InputText
-                  value={searchItem}
-                  onChange={(e) =>
-                    handleSearch(
-                      e,
-                      setsearchItem,
-                      setitemFounded,
-                      findItem,
-                      searchItem
-                    )
-                  }
-                />
-                {searchItem.length > 0 && (
-                  <div className="search_list">
-                    {itemFounded.map((founded) => (
-                      <div key={founded.id}>{founded.name}</div>
-                    ))}
-                  </div>
-                )}
-              </SearchBar>
-            );
-          }}
-        </ItemsContext.Consumer>
+        <SearchBar className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            value={searchItem}
+            onChange={(e) =>
+              handleSearch(
+                e,
+                setsearchItem,
+                setitemFounded,
+                findItem,
+                searchItem
+              )
+            }
+          />
+          {searchItem.length > 0 && (
+            <div className="search_list">
+              {itemFounded.map((founded) => (
+                <div key={founded.id}>{founded.name}</div>
+              ))}
+            </div>
+          )}
+        </SearchBar>
 
         <NavigationMenu className="p-d-none p-d-md-inline-flex">
           <Link href="/mycart">
@@ -141,7 +131,6 @@ const Header = () => {
             <a className="p-m-2">Your Orders</a>
           </Link>
         </NavigationMenu>
-
         <Sidebar
           visible={visible}
           position="right"

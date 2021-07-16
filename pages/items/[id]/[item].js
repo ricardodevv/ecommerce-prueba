@@ -74,8 +74,8 @@ const Item = () => {
     /* Setting react context */
   }
 
-  const contextStorage = useContext(ItemsContext);
-  const { items, cartItems, setcartItems, dispatch } = contextStorage;
+  const { store, dispatch } = useContext(ItemsContext);
+  const { items } = store;
 
   {
     /* Finding the item to show with the id variable from the router.query */

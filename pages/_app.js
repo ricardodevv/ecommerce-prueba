@@ -11,8 +11,10 @@ export const ItemsContext = React.createContext();
 
 const itemReducer = (state, action) => {
   switch (action.type) {
-    case "addCart":
-      return state.concat(action.data);
+    case "setItems":
+      return { ...state, items: action.data.items };
+    case "addToCart":
+      return { ...state, cart: [...state.cart, action.data] };
     case "removeCart":
       return "";
     case "buy":
@@ -33,7 +35,7 @@ export const setItems = (items) => {
 
 export const addToCart = (item, quantity) => {
   return {
-    type: "addCart",
+    type: "addToCart",
     data: {
       item,
       quantity,
@@ -42,35 +44,35 @@ export const addToCart = (item, quantity) => {
 };
 
 const MyApp = ({ Component, pageProps }) => {
-  const [items, setItems] = useState([]);
+  //const [items, setItems] = useState([]);
   const [searchItem, setsearchItem] = useState("");
   const [itemFounded, setitemFounded] = useState([]);
-  const cartItems = [];
 
   useEffect(() => {
-    itemService.getItems().then((result) => setItems(result.data));
+    itemService.getItems().then((result) => dispatch(setItems(result.data)));
   }, []);
 
-  const [state, dispatch] = useReducer(itemReducer, cartItems);
+  const initialStore = {
+    items: [],
+    cart: [],
+  };
+
+  const [store, dispatch] = useReducer(itemReducer, initialStore);
 
   const findItem = (toSearch) => {
-    return items.filter(
+    return store.items.filter(
       (el) => el.name.toLowerCase().indexOf(toSearch.toLowerCase()) > -1
     );
   };
 
-  console.log(state);
-
   const contextStorage = {
-    items,
-    state,
+    store,
     searchItem,
     itemFounded,
     setsearchItem,
     setitemFounded,
     findItem,
     dispatch,
-    addToCart,
   };
 
   return (

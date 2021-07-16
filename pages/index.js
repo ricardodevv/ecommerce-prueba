@@ -92,11 +92,8 @@ const HomeStyled = styled.div`
 `;
 
 const Home = () => {
-  const storage = useContext(ItemsContext);
-  const { items, state } = storage;
-  console.log(state);
-  //const itemStorage = state.find((el) => el.items);
-  //console.log(itemStorage.items.map((el) => el.name));
+  const { store } = useContext(ItemsContext);
+  const { items } = store;
 
   return (
     <HomeStyled>

@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const LayoutStyled = styled.div`
   .children {
-    margin-top: 4rem;
+    margin-top: 3rem;
   }
 `;
 
