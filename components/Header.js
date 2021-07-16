@@ -17,11 +17,10 @@ const HeaderStyled = styled.div`
   .container {
     display: flex;
     width: 80%;
-    height: 3em;
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    padding: 2em;
+    padding: 0.3em;
   }
 
   .logo {

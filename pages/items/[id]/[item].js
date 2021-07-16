@@ -1,44 +1,54 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { ItemsContext } from "../../_app";
+import { addToCart, ItemsContext } from "../../_app";
 import Image from "next/image";
 import dogfood from "../../../pictures/dog-food.jpg";
 import styled from "styled-components";
 
 const ItemLayout = styled.div`
+  .item_layout_container {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 90%;
+    margin: auto;
+  }
+
   #item_container {
     max-width: 1400px;
-    width: 90%;
-    margin: 8em auto;
-    height: 35em;
+    margin: 4em auto;
+    padding: 1em;
   }
 
   .image_container {
     width: 35%;
-    min-width: 25em;
+    min-width: 20em;
     margin: 0 auto;
     padding-right: 1em;
 
-    @media screen and (max-width: 750px) {
+    @media screen and (max-width: 768px) {
       padding: 0;
     }
   }
 
-  .details_container {
+  .item_details {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+    .details_container {
+      margin: 0.5em 0;
+    }
+
     .name {
       font-size: max(2.5vw, 30px);
+      margin-bottom: 0.5em;
     }
 
     .buy_container {
       display: flex;
       align-items: center;
 
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: 768px) {
         justify-content: flex-end;
       }
 
@@ -65,7 +75,7 @@ const Item = () => {
   }
 
   const contextStorage = useContext(ItemsContext);
-  const { items, cartItems, setcartItems } = contextStorage;
+  const { items, cartItems, setcartItems, dispatch } = contextStorage;
 
   {
     /* Finding the item to show with the id variable from the router.query */
@@ -81,39 +91,39 @@ const Item = () => {
   const handleAddToCart = (e) => {
     e.preventDefault();
     // Añadir itemsReducer para manejar el carro de compras
-    setcartItems(cartItems.concat(itemToCart));
+    dispatch(addToCart(itemToShow, 1));
   };
-
-  console.log(cartItems);
 
   return (
     <ItemLayout>
-      {itemToShow !== undefined && (
-        <div
-          id="item_container"
-          className="p-d-flex p-flex-column p-flex-md-row"
-        >
-          <div className="image_container">
-            <Image src={dogfood} alt="item picture" />
-          </div>
-          <div className="details_container">
-            <div>
-              <h3 className="name">{itemToShow.name}</h3>
-              <p className="description">{itemToShow.description}</p>
+      <div className="item_layout_container">
+        {itemToShow !== undefined && (
+          <div
+            id="item_container"
+            className="p-d-flex p-flex-column p-flex-md-row"
+          >
+            <div className="image_container">
+              <Image src={dogfood} alt="item picture" />
             </div>
-            <div className="buy_container">
-              <span className="price">{`${itemToShow.price}$`}</span>
-              <span className="buy_button">Buy</span>
-              <span
-                className="addToCart_button"
-                onClick={(e) => handleAddToCart(e)}
-              >
-                Add to cart
-              </span>
+            <div className="item_details">
+              <div className="details_container">
+                <h3 className="name">{itemToShow.name}</h3>
+                <p className="description">{itemToShow.description}</p>
+              </div>
+              <div className="buy_container">
+                <span className="price">{`${itemToShow.price}$`}</span>
+                <span className="buy_button">Buy</span>
+                <span
+                  className="addToCart_button"
+                  onClick={(e) => handleAddToCart(e)}
+                >
+                  Add to cart
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </ItemLayout>
   );
 };

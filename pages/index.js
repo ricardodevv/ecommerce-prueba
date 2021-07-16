@@ -92,6 +92,12 @@ const HomeStyled = styled.div`
 `;
 
 const Home = () => {
+  const storage = useContext(ItemsContext);
+  const { items, state } = storage;
+  console.log(state);
+  //const itemStorage = state.find((el) => el.items);
+  //console.log(itemStorage.items.map((el) => el.name));
+
   return (
     <HomeStyled>
       {/* Main home section */}
@@ -119,34 +125,25 @@ const Home = () => {
         <div className="shop_container">
           <h2>Shop</h2>
           <div id="grid_layout" className="p-grid">
-            {
-              <ItemsContext.Consumer>
-                {(contextStorage) =>
-                  contextStorage.items.map((item) => (
-                    <Link
-                      href="/items/[id]/[item]"
-                      as={`/items/${item.id}/${item.name}`}
-                    >
-                      <div
-                        id="card_container"
-                        className="p-col-12 p-md-6 p-lg-3"
-                        key={item.id}
-                      >
-                        <div id="card" className="p-d-flex p-flex-column">
-                          <div className="image_container">
-                            <Image src={food} alt="item image" />
-                          </div>
-                          <div className="card_details">
-                            <h3 className="name">{item.name}</h3>
-                            <h3 className="price">{`${item.price}$`}</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ))
-                }
-              </ItemsContext.Consumer>
-            }
+            {items.map((item) => (
+              <Link
+                href="/items/[id]/[item]"
+                as={`/items/${item.id}/${item.name}`}
+                key={item.id}
+              >
+                <div id="card_container" className="p-col-12 p-md-6 p-lg-3">
+                  <div id="card" className="p-d-flex p-flex-column">
+                    <div className="image_container">
+                      <Image src={food} alt="item image" />
+                    </div>
+                    <div className="card_details">
+                      <h3 className="name">{item.name}</h3>
+                      <h3 className="price">{`${item.price}$`}</h3>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

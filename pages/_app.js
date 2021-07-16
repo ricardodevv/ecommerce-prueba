@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "../styles/globals.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -9,15 +9,49 @@ import itemService from "../services/items";
 
 export const ItemsContext = React.createContext();
 
-function MyApp({ Component, pageProps }) {
+const itemReducer = (state, action) => {
+  switch (action.type) {
+    case "addCart":
+      return state.concat(action.data);
+    case "removeCart":
+      return "";
+    case "buy":
+      return "";
+    default:
+      break;
+  }
+};
+
+export const setItems = (items) => {
+  return {
+    type: "setItems",
+    data: {
+      items,
+    },
+  };
+};
+
+export const addToCart = (item, quantity) => {
+  return {
+    type: "addCart",
+    data: {
+      item,
+      quantity,
+    },
+  };
+};
+
+const MyApp = ({ Component, pageProps }) => {
   const [items, setItems] = useState([]);
   const [searchItem, setsearchItem] = useState("");
   const [itemFounded, setitemFounded] = useState([]);
-  const [cartItems, setcartItems] = useState([]);
+  const cartItems = [];
 
   useEffect(() => {
     itemService.getItems().then((result) => setItems(result.data));
   }, []);
+
+  const [state, dispatch] = useReducer(itemReducer, cartItems);
 
   const findItem = (toSearch) => {
     return items.filter(
@@ -25,15 +59,18 @@ function MyApp({ Component, pageProps }) {
     );
   };
 
+  console.log(state);
+
   const contextStorage = {
     items,
+    state,
     searchItem,
     itemFounded,
-    cartItems,
     setsearchItem,
     setitemFounded,
-    setcartItems,
     findItem,
+    dispatch,
+    addToCart,
   };
 
   return (
@@ -43,6 +80,6 @@ function MyApp({ Component, pageProps }) {
       </Layout>
     </ItemsContext.Provider>
   );
-}
+};
 
 export default MyApp;
