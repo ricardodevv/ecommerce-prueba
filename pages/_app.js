@@ -10,13 +10,45 @@ import itemService from "../services/items";
 export const ItemsContext = React.createContext();
 
 const itemReducer = (state, action) => {
+  const data = action.data;
+  const existingItem = state.cart.find((item) => item.id === data.item.id);
+
   switch (action.type) {
     case "setItems":
-      return { ...state, items: action.data.items };
+      return { ...state, items: data.items };
     case "addToCart":
-      return { ...state, cart: [...state.cart, action.data] };
-    case "removeCart":
-      return "";
+      return existingItem
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === data.item.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: [...state.cart, data.item],
+          };
+    case "removeItem":
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== data.item.id),
+      };
+    case "removeOneItem":
+      return existingItem.quantity > 1
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === data.item.id
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((item) => item.id !== data.item.id),
+          };
     case "buy":
       return "";
     default:
@@ -33,12 +65,29 @@ export const setItems = (items) => {
   };
 };
 
-export const addToCart = (item, quantity) => {
+export const addToCart = (item) => {
   return {
     type: "addToCart",
     data: {
       item,
-      quantity,
+    },
+  };
+};
+
+export const removeItem = (item) => {
+  return {
+    type: "removeItem",
+    data: {
+      item,
+    },
+  };
+};
+
+export const removeOneItem = (item) => {
+  return {
+    type: "removeOneItem",
+    data: {
+      item,
     },
   };
 };
@@ -48,10 +97,6 @@ const MyApp = ({ Component, pageProps }) => {
   const [searchItem, setsearchItem] = useState("");
   const [itemFounded, setitemFounded] = useState([]);
 
-  useEffect(() => {
-    itemService.getItems().then((result) => dispatch(setItems(result.data)));
-  }, []);
-
   const initialStore = {
     items: [],
     cart: [],
@@ -59,10 +104,32 @@ const MyApp = ({ Component, pageProps }) => {
 
   const [store, dispatch] = useReducer(itemReducer, initialStore);
 
-  const findItem = (toSearch) => {
+  useEffect(() => {
+    itemService.getItems().then((result) => dispatch(setItems(result.data)));
+  }, []);
+
+  console.log(store);
+
+  const findSearchedItem = (toSearch) => {
     return store.items.filter(
       (el) => el.name.toLowerCase().indexOf(toSearch.toLowerCase()) > -1
     );
+  };
+
+  const findItem = (id) =>
+    store.items.find((item) => {
+      const itemId = typeof id !== "string" ? item.id : item.id.toString();
+      return itemId === id;
+    });
+
+  const dispatchAddToCart = (id) => {
+    const itemToAdd = findItem(id);
+
+    const itemToCart = {
+      ...itemToAdd,
+      quantity: 1,
+    };
+    dispatch(addToCart(itemToCart));
   };
 
   const contextStorage = {
@@ -71,15 +138,15 @@ const MyApp = ({ Component, pageProps }) => {
     itemFounded,
     setsearchItem,
     setitemFounded,
+    findSearchedItem,
     findItem,
     dispatch,
+    dispatchAddToCart,
   };
 
   return (
     <ItemsContext.Provider value={contextStorage}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Component {...pageProps} />
     </ItemsContext.Provider>
   );
 };

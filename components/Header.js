@@ -30,7 +30,7 @@ const HeaderStyled = styled.div`
   #Sidebar-menu-button {
     background-color: black;
     width: 3rem;
-    border-radius: 2em;
+    border-radius: 50%;
     border: none;
   }
 `;
@@ -53,10 +53,40 @@ const SearchBar = styled.span`
     box-shadow: none;
   }
 
-  .search_list {
+  .search_list_container {
     position: absolute;
     background-color: white;
     width: 100%;
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    top: 1em;
+    z-index: -1;
+
+    &:focus {
+      .search_list {
+        display: block;
+      }
+    }
+
+    .search_list {
+      padding-top: 1.5em;
+
+      div {
+        transition: 0.2s;
+        padding: 0 1em;
+        cursor: pointer;
+
+        &:hover {
+          background-color: wheat;
+        }
+
+        &:last-child {
+          border-bottom-right-radius: 1em;
+          border-bottom-left-radius: 1em;
+          padding-bottom: 3px;
+        }
+      }
+    }
   }
 `;
 
@@ -73,19 +103,24 @@ const NavigationMenu = styled.ul`
 const Header = () => {
   const [visible, setVisible] = useState(false);
 
-  const { setsearchItem, setitemFounded, findItem, searchItem, itemFounded } =
-    useContext(ItemsContext);
+  const {
+    setsearchItem,
+    setitemFounded,
+    findSearchedItem,
+    searchItem,
+    itemFounded,
+  } = useContext(ItemsContext);
 
   const handleSearch = (
     e,
     setsearchItem,
     setitemFounded,
-    findItem,
+    findSearchedItem,
     searchItem
   ) => {
     e.preventDefault();
     setsearchItem(e.target.value);
-    setitemFounded(findItem(searchItem));
+    setitemFounded(findSearchedItem(searchItem));
   };
 
   return (
@@ -106,16 +141,28 @@ const Header = () => {
                 e,
                 setsearchItem,
                 setitemFounded,
-                findItem,
+                findSearchedItem,
                 searchItem
               )
             }
           />
           {searchItem.length > 0 && (
-            <div className="search_list">
-              {itemFounded.map((founded) => (
-                <div key={founded.id}>{founded.name}</div>
-              ))}
+            <div className="search_list_container">
+              <div className="search_list">
+                {itemFounded.map((founded) => {
+                  const url = founded.name.toLowerCase().replace(/\s/g, "-");
+                  return (
+                    <Link
+                      key={founded.id}
+                      href="/items/[id]/[item]"
+                      as={`/items/${founded.id}/${url}`}
+                      passHref
+                    >
+                      <div>{founded.name}</div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           )}
         </SearchBar>
@@ -123,9 +170,6 @@ const Header = () => {
         <NavigationMenu className="p-d-none p-d-md-inline-flex">
           <Link href="/mycart">
             <a>My cart</a>
-          </Link>
-          <Link href="/purchase">
-            <a>Purchase</a>
           </Link>
           <Link href="/orders">
             <a className="p-m-2">Your Orders</a>
@@ -139,9 +183,6 @@ const Header = () => {
           <ul className="p-d-flex p-flex-column">
             <Link href="/mycart">
               <a className="p-m-2">My cart</a>
-            </Link>
-            <Link href="/purchase">
-              <a className="p-m-2">Purchase</a>
             </Link>
             <Link href="/orders">
               <a className="p-m-2">Your Orders</a>

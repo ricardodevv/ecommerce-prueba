@@ -5,35 +5,40 @@
       "name": "Cat chow 10kg",
       "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
       "price": 15,
-      "type": "cats"
+      "type": "cats",
+      "inventory": 5
     },
     {
       "id": 2,
       "name": "Cat toy",
       "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
       "price": 10,
-      "type": "cats"
+      "type": "cats",
+      "inventory": 3
     },
     {
       "id": 3,
       "name": "Dog chow 4Kg",
       "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
       "price": 20,
-      "type": "dogs"
+      "type": "dogs",
+      "inventory": 2
     },
     {
       "id": 4,
       "name": "Cat chow 4Kg",
       "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
       "price": 25,
-      "type": "cats"
+      "type": "cats",
+      "inventory": 4
     },
     {
       "id": 5,
       "name": "Dog toy",
       "description": "This is an incredible item that you MUST buy bro i swaer your pet is gonna love it",
       "price": 30,
-      "type": "dogs"
+      "type": "dogs",
+      "inventory": 20
     }
   ]
 }

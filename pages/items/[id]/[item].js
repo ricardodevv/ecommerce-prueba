@@ -2,8 +2,10 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import { addToCart, ItemsContext } from "../../_app";
 import Image from "next/image";
+import { Button } from "primereact/button";
 import dogfood from "../../../pictures/dog-food.jpg";
 import styled from "styled-components";
+import Layout from "../../../components/Layout";
 
 const ItemLayout = styled.div`
   .item_layout_container {
@@ -74,57 +76,44 @@ const Item = () => {
     /* Setting react context */
   }
 
-  const { store, dispatch } = useContext(ItemsContext);
+  const { store, dispatchAddToCart, findItem } = useContext(ItemsContext);
   const { items } = store;
 
-  {
-    /* Finding the item to show with the id variable from the router.query */
-  }
-
-  const findItem = (id) => items.find((item) => item.id.toString() === id);
   const itemToShow = findItem(id);
 
-  {
-    /* Add to cart handler */
-  }
-
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    // Añadir itemsReducer para manejar el carro de compras
-    dispatch(addToCart(itemToShow, 1));
-  };
-
   return (
-    <ItemLayout>
-      <div className="item_layout_container">
-        {itemToShow !== undefined && (
-          <div
-            id="item_container"
-            className="p-d-flex p-flex-column p-flex-md-row"
-          >
-            <div className="image_container">
-              <Image src={dogfood} alt="item picture" />
-            </div>
-            <div className="item_details">
-              <div className="details_container">
-                <h3 className="name">{itemToShow.name}</h3>
-                <p className="description">{itemToShow.description}</p>
+    <Layout pageTitle={itemToShow.name}>
+      <ItemLayout>
+        <div className="item_layout_container">
+          {itemToShow !== undefined && (
+            <div
+              id="item_container"
+              className="p-d-flex p-flex-column p-flex-md-row"
+            >
+              <div className="image_container">
+                <Image src={dogfood} alt="item picture" />
               </div>
-              <div className="buy_container">
-                <span className="price">{`${itemToShow.price}$`}</span>
-                <span className="buy_button">Buy</span>
-                <span
-                  className="addToCart_button"
-                  onClick={(e) => handleAddToCart(e)}
-                >
-                  Add to cart
-                </span>
+              <div className="item_details">
+                <div className="details_container">
+                  <h3 className="name">{itemToShow.name}</h3>
+                  <p className="description">{itemToShow.description}</p>
+                </div>
+                <div className="buy_container">
+                  <span className="price">{`${itemToShow.price}$`}</span>
+                  <span className="buy_button">Buy</span>
+                  <Button
+                    className="p-button-rounded cart_button"
+                    label="Add to cart"
+                    icon="pi pi-shopping-cart"
+                    onClick={() => dispatchAddToCart(itemToShow.id)}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    </ItemLayout>
+          )}
+        </div>
+      </ItemLayout>
+    </Layout>
   );
 };
 
