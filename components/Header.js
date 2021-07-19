@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import styled from "styled-components";
-import { ItemsContext } from "../pages/_app";
 
 const HeaderStyled = styled.div`
   box-shadow: rgb(0 0 0 / 24%) 0px 0px 5px;
@@ -101,15 +100,9 @@ const NavigationMenu = styled.ul`
 `;
 
 const Header = () => {
+  const [searchItem, setsearchItem] = useState("");
+  const [itemFounded, setitemFounded] = useState([]);
   const [visible, setVisible] = useState(false);
-
-  const {
-    setsearchItem,
-    setitemFounded,
-    findSearchedItem,
-    searchItem,
-    itemFounded,
-  } = useContext(ItemsContext);
 
   const handleSearch = (
     e,
@@ -150,14 +143,8 @@ const Header = () => {
             <div className="search_list_container">
               <div className="search_list">
                 {itemFounded.map((founded) => {
-                  const url = founded.name.toLowerCase().replace(/\s/g, "-");
                   return (
-                    <Link
-                      key={founded.id}
-                      href="/items/[id]/[item]"
-                      as={`/items/${founded.id}/${url}`}
-                      passHref
-                    >
+                    <Link key={founded.id} href={`/items/${founded.id}`}>
                       <div>{founded.name}</div>
                     </Link>
                   );

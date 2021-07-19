@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../pictures/dogbrown.png";
 import food from "../pictures/dog-food.jpg";
 import { Button } from "primereact/button";
-import { ItemsContext } from "./_app";
 import Link from "next/link";
 import Layout from "../components/Layout";
 
@@ -103,10 +102,16 @@ const HomeStyled = styled.div`
   }
 `;
 
-const Home = () => {
-  const { store, dispatchAddToCart } = useContext(ItemsContext);
-  const { items } = store;
+export const getStaticProps = async () => {
+  const res = await fetch(`http://localhost:3001/items`);
+  const items = await res.json();
 
+  return {
+    props: { items },
+  };
+};
+
+const Home = ({ items }) => {
   return (
     <Layout pageTitle="Home">
       <HomeStyled>
@@ -144,11 +149,7 @@ const Home = () => {
                     className="p-col-12 p-md-4 p-lg-3"
                   >
                     <div id="card" className="p-d-flex p-flex-column">
-                      <Link
-                        href="/items/[id]/[item]"
-                        as={`/items/${item.id}/${url}`}
-                        passHref
-                      >
+                      <Link href={`/items/${item.id}`}>
                         <div className="image_container">
                           <Image src={food} alt="item image" />
                         </div>

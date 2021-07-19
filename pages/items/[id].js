@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { addToCart, ItemsContext } from "../../_app";
+import { addToCart, ItemsContext } from "../_app";
 import Image from "next/image";
 import { Button } from "primereact/button";
-import dogfood from "../../../pictures/dog-food.jpg";
+import dogfood from "../../pictures/dog-food.jpg";
 import styled from "styled-components";
-import Layout from "../../../components/Layout";
+import Layout from "../../components/Layout";
 
 const ItemLayout = styled.div`
   .item_layout_container {
@@ -68,24 +68,41 @@ const ItemLayout = styled.div`
   }
 `;
 
-const Item = () => {
-  const router = useRouter();
-  const { id } = router.query;
+export const getStaticPaths = async () => {
+  const res = await fetch("http://localhost:3001/items");
+  const data = await res.json();
+
+  const paths = data.map((el) => ({
+    params: { id: el.id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }) => {
+  const res = await fetch(`http://localhost:3001/items/${params.id}`);
+  const item = await res.json();
+
+  return {
+    props: { item },
+  };
+};
+
+const Item = ({ item }) => {
+  console.log(item);
 
   {
     /* Setting react context */
   }
 
-  const { store, dispatchAddToCart, findItem } = useContext(ItemsContext);
-  const { items } = store;
-
-  const itemToShow = findItem(id);
-
   return (
-    <Layout pageTitle={itemToShow.name}>
+    <Layout pageTitle={item.name}>
       <ItemLayout>
         <div className="item_layout_container">
-          {itemToShow !== undefined && (
+          {item !== undefined && (
             <div
               id="item_container"
               className="p-d-flex p-flex-column p-flex-md-row"
@@ -95,17 +112,17 @@ const Item = () => {
               </div>
               <div className="item_details">
                 <div className="details_container">
-                  <h3 className="name">{itemToShow.name}</h3>
-                  <p className="description">{itemToShow.description}</p>
+                  <h3 className="name">{item.name}</h3>
+                  <p className="description">{item.description}</p>
                 </div>
                 <div className="buy_container">
-                  <span className="price">{`${itemToShow.price}$`}</span>
+                  <span className="price">{`${item.price}$`}</span>
                   <span className="buy_button">Buy</span>
                   <Button
                     className="p-button-rounded cart_button"
                     label="Add to cart"
                     icon="pi pi-shopping-cart"
-                    onClick={() => dispatchAddToCart(itemToShow.id)}
+                    onClick={() => dispatchAddToCart(item.id)}
                   />
                 </div>
               </div>
