@@ -1,6 +1,6 @@
 export const initialStore = {
-  items: [],
   cart: [],
+  orders: [],
 };
 
 const reducer = (state, action) => {
@@ -44,11 +44,15 @@ const reducer = (state, action) => {
     case "buy":
       return "";
     default:
-      break;
+      state;
   }
 };
 
 export default reducer;
+
+{
+  /* State actions */
+}
 
 export const addToCart = (item) => {
   return {

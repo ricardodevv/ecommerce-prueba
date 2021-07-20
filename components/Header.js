@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import styled from "styled-components";
+import itemService from "../services/items";
 
 const HeaderStyled = styled.div`
   box-shadow: rgb(0 0 0 / 24%) 0px 0px 5px;
@@ -76,7 +77,7 @@ const SearchBar = styled.span`
         cursor: pointer;
 
         &:hover {
-          background-color: wheat;
+          background-color: #0d89ec;
         }
 
         &:last-child {
@@ -100,17 +101,22 @@ const NavigationMenu = styled.ul`
 `;
 
 const Header = () => {
+  const [itemArray, setitemArray] = useState([]);
   const [searchItem, setsearchItem] = useState("");
   const [itemFounded, setitemFounded] = useState([]);
   const [visible, setVisible] = useState(false);
 
-  const handleSearch = (
-    e,
-    setsearchItem,
-    setitemFounded,
-    findSearchedItem,
-    searchItem
-  ) => {
+  useEffect(() => {
+    itemService.getItems().then((result) => setitemArray(result.data));
+  }, []);
+
+  const findSearchedItem = (toSearch) => {
+    return itemArray.filter(
+      (el) => el.name.toLowerCase().indexOf(toSearch.toLowerCase()) > -1
+    );
+  };
+
+  const handleSearch = (e) => {
     e.preventDefault();
     setsearchItem(e.target.value);
     setitemFounded(findSearchedItem(searchItem));
@@ -127,24 +133,17 @@ const Header = () => {
 
         <SearchBar className="p-input-icon-left">
           <i className="pi pi-search" />
-          <InputText
-            value={searchItem}
-            onChange={(e) =>
-              handleSearch(
-                e,
-                setsearchItem,
-                setitemFounded,
-                findSearchedItem,
-                searchItem
-              )
-            }
-          />
+          <InputText value={searchItem} onChange={(e) => handleSearch(e)} />
           {searchItem.length > 0 && (
             <div className="search_list_container">
               <div className="search_list">
                 {itemFounded.map((founded) => {
                   return (
-                    <Link key={founded.id} href={`/items/${founded.id}`}>
+                    <Link
+                      key={founded.id}
+                      href={`/items/${founded.id}`}
+                      passHref
+                    >
                       <div>{founded.name}</div>
                     </Link>
                   );

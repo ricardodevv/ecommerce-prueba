@@ -1,22 +1,25 @@
-import { useContext } from "react";
-import { useRouter } from "next/router";
-import { addToCart, ItemsContext } from "../_app";
 import Image from "next/image";
 import { Button } from "primereact/button";
 import dogfood from "../../pictures/dog-food.jpg";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
+import { dispatchAddToCart } from "../../context/dispatchs";
+import { useStateValue } from "../../components/StateProvider";
+
+{
+  /* Styles */
+}
 
 const ItemLayout = styled.div`
+  margin-top: 5em;
+
   .item_layout_container {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 90%;
     margin: auto;
   }
 
   #item_container {
     max-width: 1400px;
-    margin: 4em auto;
     padding: 1em;
   }
 
@@ -24,11 +27,6 @@ const ItemLayout = styled.div`
     width: 35%;
     min-width: 20em;
     margin: 0 auto;
-    padding-right: 1em;
-
-    @media screen and (max-width: 768px) {
-      padding: 0;
-    }
   }
 
   .item_details {
@@ -37,33 +35,49 @@ const ItemLayout = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
-    .details_container {
-      margin: 0.5em 0;
-    }
-
     .name {
       font-size: max(2.5vw, 30px);
       margin-bottom: 0.5em;
     }
 
+    .description {
+      text-align: justify;
+    }
+
     .buy_container {
       display: flex;
       align-items: center;
+    }
 
-      @media screen and (min-width: 768px) {
-        justify-content: flex-end;
-      }
+    .buy_button,
+    .addToCart_button {
+      margin: 0 2em;
+    }
 
-      .buy_button,
-      .addToCart_button {
-        margin: 0 2em;
-      }
+    .price {
+      color: #00b700;
+      font-size: xx-large;
+      font-weight: 400;
+    }
+  }
 
-      .price {
-        color: #00b700;
-        font-size: xxx-large;
-        font-weight: 400;
-      }
+  @media screen and (max-width: 768px) {
+    .details_container {
+      margin: 1em 0 2em 0;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .buy_container {
+      justify-content: flex-end;
+    }
+
+    .item_details {
+      margin-left: 2em;
+    }
+
+    .details_container {
+      margin-bottom: 1em;
     }
   }
 `;
@@ -92,11 +106,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const Item = ({ item }) => {
-  console.log(item);
-
-  {
-    /* Setting react context */
-  }
+  const [store, dispatch] = useStateValue();
 
   return (
     <Layout pageTitle={item.name}>
@@ -122,7 +132,7 @@ const Item = ({ item }) => {
                     className="p-button-rounded cart_button"
                     label="Add to cart"
                     icon="pi pi-shopping-cart"
-                    onClick={() => dispatchAddToCart(item.id)}
+                    onClick={() => dispatchAddToCart(item, dispatch)}
                   />
                 </div>
               </div>

@@ -2,26 +2,19 @@ import React from "react";
 import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
-import styled from "styled-components";
-
-const LayoutStyled = styled.div`
-  .children {
-    margin-top: 3rem;
-  }
-`;
 
 const Layout = ({ pageTitle, children }) => {
   return (
-    <LayoutStyled>
+    <div>
       <Head>
         <title>{pageTitle}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
       <Header />
-      <div className="children">{children}</div>
+      <div style={{ margin: "3em 0 6em 0" }}>{children}</div>
       <Footer />
-    </LayoutStyled>
+    </div>
   );
 };
 

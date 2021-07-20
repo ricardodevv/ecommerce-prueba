@@ -1,11 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "primereact/button";
-import { ItemsContext, removeOneItem } from "./_app";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { removeItem } from "./_app";
 import styled from "styled-components";
 import Layout from "../components/Layout";
+import { useStateValue } from "../components/StateProvider";
+import { removeOneItem, removeItem } from "../context/reducer";
+import Link from "next/link";
+import {
+  formatCurrency,
+  priceReducer,
+  productsReducer,
+  totalCartPrice,
+  totalProductPrice,
+} from "../utils";
+
+{
+  /* Styles  */
+}
 
 const MyCartStyled = styled.div`
   height: 40em;
@@ -16,6 +28,12 @@ const MyCartStyled = styled.div`
     .pi-shopping-cart {
       font-size: smaller;
     }
+  }
+
+  .checkout_button {
+    background-color: gold;
+    color: black;
+    margin: 1em;
   }
 `;
 
@@ -41,19 +59,19 @@ const Price = styled.span`
 `;
 
 const MyCart = () => {
-  const { store, dispatch } = useContext(ItemsContext);
-  const { cart } = store;
+  const [{ cart }, dispatch] = useStateValue();
 
-  const formatCurrency = (value) => {
-    return value.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-    });
-  };
+  {
+    /* Price column */
+  }
 
   const priceBodyTemplate = (data) => {
     return formatCurrency(data.price);
   };
+
+  {
+    /*  Stock column */
+  }
 
   const statusBodyTemplate = (data) => {
     let content;
@@ -75,6 +93,10 @@ const MyCart = () => {
     );
   };
 
+  {
+    /* Delete Buttons column */
+  }
+
   const deleteBodyTemplate = (data) => {
     return (
       <div>
@@ -92,24 +114,17 @@ const MyCart = () => {
     );
   };
 
-  const priceReducer = (cartArray) => {
-    const totalPrice = cartArray.reduce(
-      (accumulator, currentValue) =>
-        (accumulator += currentValue.quantity * currentValue.price),
-      0
-    );
-    return formatCurrency(totalPrice);
-  };
-
-  const totalCartPrice = (data) => {
-    return priceReducer(data);
-  };
+  {
+    /* Total cart products/amount column */
+  }
 
   const totalPriceBodyTemplate = (data) => {
-    const findItem = cart.filter((item) => item.id === data.id);
-    const totalItemPrice = findItem && priceReducer(findItem);
-    return findItem ? formatCurrency(totalItemPrice) : "";
+    return totalProductPrice(data, cart);
   };
+
+  {
+    /* Table header */
+  }
 
   const tableHeader = (
     <div className="table_header">
@@ -119,12 +134,18 @@ const MyCart = () => {
     </div>
   );
 
+  {
+    /* Table footer */
+  }
+
   const tableFooter = (
     <div>
-      <div>{`Total products: ${cart ? cart.length : 0}`}</div>
+      <div>{`Total products: ${productsReducer(cart)}`}</div>
       <div>{`Total: ${totalCartPrice(cart)}`}</div>
     </div>
   );
+
+  console.log(cart.length);
 
   return (
     <Layout pageTitle="My cart">
@@ -150,7 +171,13 @@ const MyCart = () => {
             ></Column>
             <Column body={deleteBodyTemplate}></Column>
           </DataTable>
-          <div></div>
+          <div>
+            {cart.length > 0 && (
+              <Link href="/purchase" passHref>
+                <Button className="checkout_button" label="Go to checkout" />
+              </Link>
+            )}
+          </div>
         </div>
       </MyCartStyled>
     </Layout>

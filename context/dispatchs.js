@@ -1,5 +1,7 @@
-export const dispatchAddToCart = (id) => {
-  const itemToAdd = findItem(id);
+import { addToCart } from "./reducer";
+
+export const dispatchAddToCart = (item, dispatch) => {
+  const itemToAdd = item;
 
   const itemToCart = {
     ...itemToAdd,

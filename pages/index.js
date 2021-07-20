@@ -6,6 +6,8 @@ import food from "../pictures/dog-food.jpg";
 import { Button } from "primereact/button";
 import Link from "next/link";
 import Layout from "../components/Layout";
+import { dispatchAddToCart } from "../context/dispatchs";
+import { useStateValue } from "../components/StateProvider";
 
 const HomeStyled = styled.div`
   width: 100%;
@@ -33,7 +35,7 @@ const HomeStyled = styled.div`
     justify-content: center;
     align-items: center;
 
-    & h2 {
+    h2 {
       font-size: xxx-large;
       font-weight: 300;
       font-style: italic;
@@ -77,6 +79,10 @@ const HomeStyled = styled.div`
     .image_container {
       margin: auto;
       cursor: pointer;
+
+      .image {
+        border-radius: 10%;
+      }
     }
 
     .card_details {
@@ -112,6 +118,8 @@ export const getStaticProps = async () => {
 };
 
 const Home = ({ items }) => {
+  const [store, dispatch] = useStateValue();
+
   return (
     <Layout pageTitle="Home">
       <HomeStyled>
@@ -141,7 +149,6 @@ const Home = ({ items }) => {
             <h2 className="shop_title">Shop</h2>
             <div id="grid_layout" className="p-grid">
               {items.map((item) => {
-                const url = item.name.toLowerCase().replace(/\s/g, "-");
                 return (
                   <div
                     key={item.id}
@@ -149,9 +156,15 @@ const Home = ({ items }) => {
                     className="p-col-12 p-md-4 p-lg-3"
                   >
                     <div id="card" className="p-d-flex p-flex-column">
-                      <Link href={`/items/${item.id}`}>
+                      <Link href={`/items/${item.id}`} passHref>
                         <div className="image_container">
-                          <Image src={food} alt="item image" />
+                          <Image
+                            src={food}
+                            alt="item image"
+                            height={300}
+                            width={300}
+                            className="image"
+                          />
                         </div>
                       </Link>
                       <div className="card_details">
@@ -162,7 +175,7 @@ const Home = ({ items }) => {
                             className="p-button-rounded cart_button"
                             label="Add to cart"
                             icon="pi pi-shopping-cart"
-                            onClick={() => dispatchAddToCart(item.id)}
+                            onClick={() => dispatchAddToCart(item, dispatch)}
                           />
                         </div>
                       </div>
