@@ -130,7 +130,7 @@ const Item = ({ item }) => {
   const handleBuyButton = (e) => {
     e.preventDefault();
     dispatchAddToCart(item, dispatch);
-    router.push("/purchase");
+    router.push("/checkout");
   };
 
   return (

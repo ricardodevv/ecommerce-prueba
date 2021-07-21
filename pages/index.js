@@ -118,9 +118,9 @@ export const getStaticProps = async () => {
 };
 
 const Home = ({ items }) => {
-  const [store, dispatch] = useStateValue();
+  const [{ cart }, dispatch] = useStateValue();
 
-  console.log(items);
+  console.log(cart);
 
   return (
     <Layout pageTitle="Home">

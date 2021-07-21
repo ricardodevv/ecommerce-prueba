@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import { useStateValue } from "../components/StateProvider";
 import { totalCartPrice, totalProductPrice } from "../utils";
-import { dispatchBuy } from "../context/dispatchs";
+import { dispatchCheckout } from "../context/dispatchs";
 
 const PurchaseContainer = styled.div`
   width: 90%;
@@ -53,7 +53,7 @@ const Card = styled.div`
   }
 `;
 
-const Purchase = () => {
+const Checkout = () => {
   const [{ cart, orders }, dispatch] = useStateValue();
 
   const defaultValues = {
@@ -73,7 +73,7 @@ const Purchase = () => {
   } = useForm({ defaultValues });
 
   const onSubmit = () => {
-    dispatchBuy(cart, dispatch);
+    dispatchCheckout(cart, dispatch);
     reset();
   };
 
@@ -96,9 +96,6 @@ const Purchase = () => {
   );
 
   const itemListFooter = <div>{`Total: ${totalCartPrice(cart)}`}</div>;
-
-  console.log(orders);
-  console.log(cart);
 
   return (
     <Layout pageTitle="Checkout">
@@ -222,4 +219,4 @@ const Purchase = () => {
   );
 };
 
-export default Purchase;
+export default Checkout;

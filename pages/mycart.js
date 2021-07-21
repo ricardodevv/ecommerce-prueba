@@ -175,7 +175,7 @@ const MyCart = () => {
           </DataTable>
           <div>
             {cart.length > 0 && (
-              <Link href="/purchase" passHref>
+              <Link href="/checkout" passHref>
                 <Button className="checkout_button" label="Go to checkout" />
               </Link>
             )}
