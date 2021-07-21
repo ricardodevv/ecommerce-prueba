@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import { useStateValue } from "../components/StateProvider";
 import { totalCartPrice, totalProductPrice } from "../utils";
+import { dispatchBuy } from "../context/dispatchs";
 
 const PurchaseContainer = styled.div`
   width: 90%;
@@ -53,7 +54,7 @@ const Card = styled.div`
 `;
 
 const Purchase = () => {
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart, orders }, dispatch] = useStateValue();
 
   const defaultValues = {
     name: "",
@@ -71,7 +72,8 @@ const Purchase = () => {
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
+    dispatchBuy(cart, dispatch);
     reset();
   };
 
@@ -95,8 +97,11 @@ const Purchase = () => {
 
   const itemListFooter = <div>{`Total: ${totalCartPrice(cart)}`}</div>;
 
+  console.log(orders);
+  console.log(cart);
+
   return (
-    <Layout>
+    <Layout pageTitle="Checkout">
       <div>
         <PurchaseContainer className="p-d-flex p-flex-column p-flex-md-row">
           <PurchaseForm>
@@ -169,7 +174,7 @@ const Purchase = () => {
                       />
                       <label htmlFor="state">State*</label>
                     </span>
-                    {getFormErrorMessage("name")}
+                    {getFormErrorMessage("state")}
                   </div>
 
                   <h5 className="p-text-left">Payment</h5>
@@ -177,16 +182,16 @@ const Purchase = () => {
                   <div className="p-field input_label">
                     <span className="p-float-label">
                       <Controller
-                        name="credit card"
+                        name="creditCard"
                         control={control}
                         rules={{ required: "Credit card number is required." }}
                         render={({ field }) => (
                           <InputText id={field.name} {...field} autoFocus />
                         )}
                       />
-                      <label htmlFor="credit card">Credit card number*</label>
+                      <label htmlFor="creditCard">Credit card number*</label>
                     </span>
-                    {getFormErrorMessage("name")}
+                    {getFormErrorMessage("creditCard")}
                   </div>
 
                   <Button type="submit" label="Submit" className="p-mt-2" />

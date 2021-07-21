@@ -120,6 +120,8 @@ export const getStaticProps = async () => {
 const Home = ({ items }) => {
   const [store, dispatch] = useStateValue();
 
+  console.log(items);
+
   return (
     <Layout pageTitle="Home">
       <HomeStyled>

@@ -34,6 +34,10 @@ const MyCartStyled = styled.div`
     background-color: gold;
     color: black;
     margin: 1em;
+
+    &:hover {
+      background-color: black;
+    }
   }
 `;
 
@@ -144,8 +148,6 @@ const MyCart = () => {
       <div>{`Total: ${totalCartPrice(cart)}`}</div>
     </div>
   );
-
-  console.log(cart.length);
 
   return (
     <Layout pageTitle="My cart">

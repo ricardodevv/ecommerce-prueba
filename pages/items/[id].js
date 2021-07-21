@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Layout from "../../components/Layout";
 import { dispatchAddToCart } from "../../context/dispatchs";
 import { useStateValue } from "../../components/StateProvider";
+import { useRouter } from "next/router";
 
 {
   /* Styles */
@@ -44,14 +45,29 @@ const ItemLayout = styled.div`
       text-align: justify;
     }
 
-    .buy_container {
+    .buttons_container {
       display: flex;
       align-items: center;
     }
 
-    .buy_button,
-    .addToCart_button {
+    .buy_button {
       margin: 0 2em;
+      border: none;
+
+      &:hover {
+        background-color: gold;
+        border: none;
+        color: black;
+      }
+    }
+
+    .cart_button {
+      width: 3em;
+      height: 3em;
+
+      span {
+        font-size: x-large;
+      }
     }
 
     .price {
@@ -68,7 +84,7 @@ const ItemLayout = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    .buy_container {
+    .buttons_container {
       justify-content: flex-end;
     }
 
@@ -107,6 +123,15 @@ export const getStaticProps = async ({ params }) => {
 
 const Item = ({ item }) => {
   const [store, dispatch] = useStateValue();
+  const router = useRouter();
+
+  console.log(item);
+
+  const handleBuyButton = (e) => {
+    e.preventDefault();
+    dispatchAddToCart(item, dispatch);
+    router.push("/purchase");
+  };
 
   return (
     <Layout pageTitle={item.name}>
@@ -125,12 +150,15 @@ const Item = ({ item }) => {
                   <h3 className="name">{item.name}</h3>
                   <p className="description">{item.description}</p>
                 </div>
-                <div className="buy_container">
+                <div className="buttons_container">
                   <span className="price">{`${item.price}$`}</span>
-                  <span className="buy_button">Buy</span>
+                  <Button
+                    className="p-button-rounded buy_button"
+                    label="Buy"
+                    onClick={(e) => handleBuyButton(e)}
+                  ></Button>
                   <Button
                     className="p-button-rounded cart_button"
-                    label="Add to cart"
                     icon="pi pi-shopping-cart"
                     onClick={() => dispatchAddToCart(item, dispatch)}
                   />

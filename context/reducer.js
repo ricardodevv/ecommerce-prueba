@@ -5,11 +5,11 @@ export const initialStore = {
 
 const reducer = (state, action) => {
   const data = action.data;
-  const existingItem = state.cart.find((item) => item.id === data.item.id);
+  const existingCartItem = state.cart.find((item) => item.id === data.item.id);
 
   switch (action.type) {
     case "addToCart":
-      return existingItem
+      return existingCartItem
         ? {
             ...state,
             cart: state.cart.map((item) =>
@@ -28,7 +28,7 @@ const reducer = (state, action) => {
         cart: state.cart.filter((item) => item.id !== data.item.id),
       };
     case "removeOneItem":
-      return existingItem.quantity > 1
+      return existingCartItem.quantity > 1
         ? {
             ...state,
             cart: state.cart.map((item) =>
@@ -41,8 +41,16 @@ const reducer = (state, action) => {
             ...state,
             cart: state.cart.filter((item) => item.id !== data.item.id),
           };
+    case "removePurchased":
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== data.item.id),
+      };
     case "buy":
-      return "";
+      return {
+        ...state,
+        orders: [...state.orders, data.item],
+      };
     default:
       state;
   }
@@ -75,6 +83,24 @@ export const removeItem = (item) => {
 export const removeOneItem = (item) => {
   return {
     type: "removeOneItem",
+    data: {
+      item,
+    },
+  };
+};
+
+export const removePurchased = (item) => {
+  return {
+    type: "removePurchased",
+    data: {
+      item,
+    },
+  };
+};
+
+export const checkout = (item) => {
+  return {
+    type: "checkout",
     data: {
       item,
     },
