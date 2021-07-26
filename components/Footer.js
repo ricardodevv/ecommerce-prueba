@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import instagram_icon from "../pictures/instagram.png";
-import facebook_icon from "../pictures/facebook.png";
-import telegram_icon from "../pictures/telegram.png";
+import instagram_icon from "../src/pictures/instagram.png";
+import facebook_icon from "../src/pictures/facebook.png";
+import telegram_icon from "../src/pictures/telegram.png";
 
 const FooterStyled = styled.div`
   width: 100%;

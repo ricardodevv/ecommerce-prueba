@@ -47,6 +47,7 @@ const SearchBar = styled.span`
   input {
     width: 100%;
     border-radius: 2em;
+    height: 2em;
   }
 
   .p-inputtext:focus {

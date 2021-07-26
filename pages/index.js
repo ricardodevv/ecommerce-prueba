@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import mainpic from "../pictures/dogbrown.png";
-import food from "../pictures/dog-food.jpg";
+import mainpic from "../src/pictures/dogbrown.png";
+import food from "../src/pictures/dog-food.jpg";
 import { Button } from "primereact/button";
 import Link from "next/link";
 import Layout from "../components/Layout";
@@ -60,36 +60,14 @@ const HomeStyled = styled.div`
     margin: 1em auto;
     box-sizing: border-box;
 
-    @media screen and (max-width: 768px) {
-      #card_container {
-        max-width: 60%;
-        margin: auto;
-      }
-    }
-
-    #card_container {
-      transition: 0.3s;
-      border-radius: 2em;
-
-      &:hover {
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      }
-    }
-
     .image_container {
-      margin: auto;
       cursor: pointer;
-
-      .image {
-        border-radius: 10%;
-      }
     }
 
     .card_details {
       padding: 0.5rem;
       display: flex;
       flex-direction: column;
-      height: 100%;
 
       .name,
       .price {
@@ -102,8 +80,33 @@ const HomeStyled = styled.div`
       }
 
       .cart_button {
-        font-size: small;
+        background-color: white;
+        color: black;
+        border: none;
+
+        .p-button-icon {
+          font-size: x-large;
+        }
       }
+    }
+  }
+`;
+
+const Card = styled.div`
+  transition: 0.3s;
+  padding: 0;
+  font-family: Roboto;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 60%;
+    margin: auto;
+
+    .image {
+      margin: auto;
     }
   }
 `;
@@ -157,14 +160,14 @@ const Home = ({ items }) => {
                     id="card_container"
                     className="p-col-12 p-md-4 p-lg-3"
                   >
-                    <div id="card" className="p-d-flex p-flex-column">
+                    <Card>
                       <Link href={`/items/${item.id}`} passHref>
                         <div className="image_container">
                           <Image
                             src={food}
                             alt="item image"
-                            height={300}
-                            width={300}
+                            height={600}
+                            width={600}
                             className="image"
                           />
                         </div>
@@ -175,13 +178,12 @@ const Home = ({ items }) => {
                           <span className="price">{`${item.price}$`}</span>
                           <Button
                             className="p-button-rounded cart_button"
-                            label="Add to cart"
                             icon="pi pi-shopping-cart"
                             onClick={() => dispatchAddToCart(item, dispatch)}
                           />
                         </div>
                       </div>
-                    </div>
+                    </Card>
                   </div>
                 );
               })}

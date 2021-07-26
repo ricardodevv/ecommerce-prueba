@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "primereact/button";
-import dogfood from "../../pictures/dog-food.jpg";
+import dogfood from "../../src/pictures/dog-food.jpg";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
 import { dispatchAddToCart } from "../../context/dispatchs";
