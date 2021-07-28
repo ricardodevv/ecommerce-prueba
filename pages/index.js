@@ -72,6 +72,11 @@ const HomeStyled = styled.div`
       .name,
       .price {
         flex: 1;
+        font-size: initial;
+      }
+
+      .name {
+        font-weight: normal;
       }
 
       .price {

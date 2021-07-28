@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
+import { OverlayPanel } from "primereact/overlaypanel";
 import styled from "styled-components";
 import itemService from "../services/items";
 
@@ -99,6 +100,39 @@ const NavigationMenu = styled.ul`
   a {
     margin: 0 1em;
   }
+
+  .user,
+  .cart {
+    background-color: white;
+    color: black;
+    border: none;
+  }
+
+  .p-button-icon {
+    font-size: larger;
+  }
+
+  .p-button.user:hover,
+  .p-button.cart:hover {
+    background-color: white;
+    color: black;
+  }
+
+  .p-button.user:focus,
+  .p-button.cart:focus {
+    box-shadow: none;
+  }
+`;
+
+const OverlayHeader = styled(OverlayPanel)`
+  .p-overlaypanel-content .user_access_links {
+    cursor: pointer;
+    margin-left: 0.2rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const Header = () => {
@@ -106,6 +140,7 @@ const Header = () => {
   const [searchItem, setsearchItem] = useState("");
   const [itemFounded, setitemFounded] = useState([]);
   const [visible, setVisible] = useState(false);
+  const op = useRef(null);
 
   useEffect(() => {
     itemService.getItems().then((result) => setitemArray(result.data));
@@ -156,8 +191,34 @@ const Header = () => {
 
         <NavigationMenu className="p-d-none p-d-md-inline-flex">
           <Link href="/mycart" passHref>
-            <a className="p-m-2">My cart</a>
+            <Button
+              icon="pi pi-shopping-cart"
+              className="cart p-button-rounded"
+            />
           </Link>
+          <Button
+            icon="pi pi-user"
+            className="user p-button-rounded"
+            onClick={(e) => op.current.toggle(e)}
+          />
+          <OverlayHeader ref={op} className="overlaypanel">
+            <div>
+              Do you have an account?
+              <Link href="/login">
+                <a className="user_access_links">
+                  <b>Sign In</b>
+                </a>
+              </Link>
+            </div>
+            or
+            <br></br>
+            you can register
+            <Link href="/register">
+              <a className="user_access_links">
+                <b>here</b>
+              </a>
+            </Link>
+          </OverlayHeader>
           <Link href="/orders">
             <a className="p-m-2">Your Orders</a>
           </Link>
