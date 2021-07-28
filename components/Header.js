@@ -135,7 +135,7 @@ const Header = () => {
         <SearchBar className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText value={searchItem} onChange={(e) => handleSearch(e)} />
-          {searchItem.length > 0 && (
+          {itemFounded.length && searchItem.length > 0 ? (
             <div className="search_list_container">
               <div className="search_list">
                 {itemFounded.map((founded) => {
@@ -151,12 +151,12 @@ const Header = () => {
                 })}
               </div>
             </div>
-          )}
+          ) : null}
         </SearchBar>
 
         <NavigationMenu className="p-d-none p-d-md-inline-flex">
-          <Link href="/mycart">
-            <a>My cart</a>
+          <Link href="/mycart" passHref>
+            <a className="p-m-2">My cart</a>
           </Link>
           <Link href="/orders">
             <a className="p-m-2">Your Orders</a>
