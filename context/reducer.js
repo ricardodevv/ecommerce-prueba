@@ -1,4 +1,5 @@
 export const initialStore = {
+  products: [],
   cart: [],
   orders: [],
 };
@@ -8,6 +9,11 @@ const reducer = (state, action) => {
   const existingCartItem = state.cart.find((item) => item.id === data.item.id);
 
   switch (action.type) {
+    case "setProducts":
+      return {
+        ...state,
+        products: [data.products],
+      };
     case "addToCart":
       return existingCartItem
         ? {
@@ -61,6 +67,15 @@ export default reducer;
 {
   /* State actions */
 }
+
+export const setProducts = (products) => {
+  return {
+    type: "setProducts",
+    data: {
+      products,
+    },
+  };
+};
 
 export const addToCart = (item) => {
   return {

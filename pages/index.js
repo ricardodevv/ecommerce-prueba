@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../src/pictures/dogbrown.png";
@@ -8,17 +8,21 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import { dispatchAddToCart } from "../context/dispatchs";
 import { useStateValue } from "../components/StateProvider";
+import { setProducts } from "../context/reducer";
+import Filter from "../components/filter";
 
 const HomeStyled = styled.div`
   width: 100%;
 
   #container {
     width: 100%;
+    font-family: Roboto;
   }
 
   .main_background {
     background-color: #ebfaff;
     padding: 1em 0;
+    height: 30rem;
   }
 
   .main_container {
@@ -26,7 +30,6 @@ const HomeStyled = styled.div`
     display: flex;
     justify-content: flex-end;
     margin: auto;
-    height: 20em;
   }
 
   .main_text {
@@ -48,16 +51,16 @@ const HomeStyled = styled.div`
 
   .shop_container {
     flex: 1;
+    margin: 2em;
 
     .shop_title {
       font-size: xx-large;
       font-weight: 400;
-      padding: 1em;
+      margin-bottom: 1em;
     }
   }
 
   #grid_layout {
-    margin: 1em auto;
     box-sizing: border-box;
 
     .image_container {
@@ -126,10 +129,13 @@ export const getStaticProps = async () => {
 };
 
 const Home = ({ items }) => {
-  const [{ cart }, dispatch] = useStateValue();
+  const [store, dispatch] = useStateValue();
 
-  console.log(cart);
+  useEffect(() => {
+    dispatch(setProducts(items));
+  }, []);
 
+  console.log(store);
   return (
     <Layout pageTitle="Home">
       <HomeStyled>
@@ -154,7 +160,7 @@ const Home = ({ items }) => {
         {/* Shop section */}
 
         <div id="container" className="p-d-flex p-flex-column p-flex-md-row">
-          <div id="filter_section" className="p-d-inline-flex"></div>
+          <Filter id="filter_section" className="p-d-inline-flex"></Filter>
           <div className="shop_container">
             <h2 className="shop_title">Shop</h2>
             <div id="grid_layout" className="p-grid">
