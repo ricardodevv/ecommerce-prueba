@@ -7,7 +7,7 @@ import { Button } from "primereact/button";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import { useStateValue } from "../components/StateProvider";
-import { totalCartPrice, totalProductPrice } from "../utils";
+import { totalCartPrice, totalProductPrice } from "../src/utils";
 import { dispatchCheckout } from "../context/dispatchs";
 
 const PurchaseContainer = styled.div`

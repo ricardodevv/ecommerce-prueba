@@ -9,11 +9,10 @@ import { removeOneItem, removeItem } from "../context/reducer";
 import Link from "next/link";
 import {
   formatCurrency,
-  priceReducer,
   productsReducer,
   totalCartPrice,
   totalProductPrice,
-} from "../utils";
+} from "../src/utils";
 
 {
   /* Styles  */
