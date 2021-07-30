@@ -57,6 +57,7 @@ const HomeStyled = styled.div`
       font-size: xx-large;
       font-weight: 400;
       margin-bottom: 1em;
+      color: #333e48;
     }
   }
 

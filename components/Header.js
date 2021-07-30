@@ -79,7 +79,7 @@ const SearchBar = styled.span`
         cursor: pointer;
 
         &:hover {
-          background-color: #0d89ec;
+          background-color: #ffc10791;
         }
 
         &:last-child {
