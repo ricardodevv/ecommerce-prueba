@@ -12,7 +12,9 @@ const Layout = ({ pageTitle, children }) => {
       </Head>
 
       <Header />
-      <div style={{ margin: "3em 0 6em 0" }}>{children}</div>
+      <div style={{ margin: "3em auto 6em auto", maxWidth: "1400px" }}>
+        {children}
+      </div>
       <Footer />
     </div>
   );

@@ -2,14 +2,11 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../src/pictures/dogbrown.png";
-import food from "../src/pictures/dog-food.jpg";
-import { Button } from "primereact/button";
-import Link from "next/link";
 import Layout from "../components/Layout";
-import { dispatchAddToCart } from "../context/dispatchs";
 import { useStateValue } from "../components/StateProvider";
 import { setProducts } from "../context/reducer";
-import Filter from "../components/filter";
+import Filter from "../components/Filter";
+import ProductsDisplay from "../components/ProductsDisplay";
 
 const HomeStyled = styled.div`
   width: 100%;
@@ -101,25 +98,6 @@ const HomeStyled = styled.div`
   }
 `;
 
-const Card = styled.div`
-  transition: 0.3s;
-  padding: 0;
-  font-family: Roboto;
-
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
-
-  @media screen and (max-width: 768px) {
-    max-width: 60%;
-    margin: auto;
-
-    .image {
-      margin: auto;
-    }
-  }
-`;
-
 export const getStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/items`);
   const items = await res.json();
@@ -162,45 +140,7 @@ const Home = ({ items }) => {
 
         <div id="container" className="p-d-flex p-flex-column p-flex-md-row">
           <Filter id="filter_section" className="p-d-inline-flex"></Filter>
-          <div className="shop_container">
-            <h2 className="shop_title">Shop</h2>
-            <div id="grid_layout" className="p-grid">
-              {items.map((item) => {
-                return (
-                  <div
-                    key={item.id}
-                    id="card_container"
-                    className="p-col-12 p-md-4 p-lg-3"
-                  >
-                    <Card>
-                      <Link href={`/items/${item.id}`} passHref>
-                        <div className="image_container">
-                          <Image
-                            src={food}
-                            alt="item image"
-                            height={600}
-                            width={600}
-                            className="image"
-                          />
-                        </div>
-                      </Link>
-                      <div className="card_details">
-                        <h3 className="name">{item.name}</h3>
-                        <div className="p-d-flex p-mt-2">
-                          <span className="price">{`${item.price}$`}</span>
-                          <Button
-                            className="p-button-rounded cart_button"
-                            icon="pi pi-shopping-cart"
-                            onClick={() => dispatchAddToCart(item, dispatch)}
-                          />
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <ProductsDisplay items={items} />
         </div>
       </HomeStyled>
     </Layout>

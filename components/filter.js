@@ -1,6 +1,5 @@
-import { Accordion, AccordionTab } from "primereact/accordion";
-import { ListBox } from "primereact/listbox";
 import styled from "styled-components";
+import Link from "next/link";
 
 const FilterStyled = styled.div`
   width: 15rem;
@@ -33,17 +32,29 @@ const FilterStyled = styled.div`
 `;
 
 const Filter = () => {
+  const categories = [
+    { name: "Food" },
+    { name: "Clothes" },
+    { name: "Accesories" },
+    { name: "Health & Care" },
+  ];
+
   return (
     <FilterStyled>
       <div className="container">
         <h3>Realms</h3>
         <div className="filter_options">
-          <div className="realms">Dogs</div>
-          <div className="realms">Cats</div>
-
           <h3 className="p-mt-3">Categories</h3>
-          <div className="realms">Food</div>
-          <div className="realms">Clothes</div>
+          {categories.map((category) => (
+            <Link
+              href={{
+                pathname: `/productList/${category.name}`,
+                query: { category: category.name },
+              }}
+            >
+              <div>{category.name}</div>
+            </Link>
+          ))}
         </div>
       </div>
     </FilterStyled>
