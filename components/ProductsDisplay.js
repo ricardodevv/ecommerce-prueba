@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import { useStateValue } from "./StateProvider";
 
 const Card = styled.div`
   transition: 0.3s;
@@ -25,6 +26,8 @@ const Card = styled.div`
 `;
 
 const ProductsDisplay = ({ items }) => {
+  const [store, dispatch] = useStateValue();
+
   return (
     <div className="shop_container">
       <h2 className="shop_title">Shop</h2>

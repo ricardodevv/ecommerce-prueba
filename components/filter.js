@@ -42,15 +42,16 @@ const Filter = () => {
   return (
     <FilterStyled>
       <div className="container">
-        <h3>Realms</h3>
         <div className="filter_options">
           <h3 className="p-mt-3">Categories</h3>
           {categories.map((category) => (
             <Link
+              key={category.name}
               href={{
                 pathname: `/productList/${category.name}`,
                 query: { category: category.name },
               }}
+              passHref
             >
               <div>{category.name}</div>
             </Link>
