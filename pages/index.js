@@ -11,7 +11,7 @@ import ProductsDisplay from "../components/ProductsDisplay";
 const HomeStyled = styled.div`
   width: 100%;
 
-  #container {
+  .container {
     width: 100%;
     font-family: Roboto;
   }
@@ -41,61 +41,6 @@ const HomeStyled = styled.div`
       font-style: italic;
     }
   }
-
-  #filter_section {
-    width: 20%;
-  }
-
-  .shop_container {
-    flex: 1;
-    margin: 2em;
-
-    .shop_title {
-      font-size: xx-large;
-      font-weight: 400;
-      margin-bottom: 1em;
-      color: #333e48;
-    }
-  }
-
-  #grid_layout {
-    box-sizing: border-box;
-
-    .image_container {
-      cursor: pointer;
-    }
-
-    .card_details {
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-
-      .name,
-      .price {
-        flex: 1;
-        font-size: initial;
-      }
-
-      .name {
-        font-weight: normal;
-      }
-
-      .price {
-        color: #00b700;
-        font-size: x-large;
-      }
-
-      .cart_button {
-        background-color: white;
-        color: black;
-        border: none;
-
-        .p-button-icon {
-          font-size: x-large;
-        }
-      }
-    }
-  }
 `;
 
 export const getStaticProps = async () => {
@@ -114,7 +59,6 @@ const Home = ({ items }) => {
     dispatch(setProducts(items));
   }, []);
 
-  console.log(store);
   return (
     <Layout pageTitle="Home">
       <HomeStyled>
@@ -138,10 +82,12 @@ const Home = ({ items }) => {
 
         {/* Shop section */}
 
-        <div id="container" className="p-d-flex p-flex-column p-flex-md-row">
-          <Filter id="filter_section" className="p-d-inline-flex"></Filter>
-          <ProductsDisplay items={items} />
-        </div>
+        {store.products.length < 1 ? null : (
+          <div className="p-d-flex p-flex-column p-flex-md-row container">
+            <Filter className="p-d-inline-flex" />
+            <ProductsDisplay items={items} />
+          </div>
+        )}
       </HomeStyled>
     </Layout>
   );

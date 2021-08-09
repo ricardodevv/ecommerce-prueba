@@ -6,9 +6,64 @@ import Image from "next/image";
 import styled from "styled-components";
 import { useStateValue } from "./StateProvider";
 
+const ShopContainer = styled.div`
+  flex: 1;
+  margin: 2em;
+
+  .shop_title {
+    font-size: xx-large;
+    font-weight: 400;
+    margin-bottom: 1em;
+    color: #333e48;
+  }
+
+  .grid_layout {
+    box-sizing: border-box;
+
+    .card_container {
+      padding: 0;
+    }
+
+    .image_container {
+      cursor: pointer;
+    }
+
+    .card_details {
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+
+      .name,
+      .price {
+        flex: 1;
+        font-size: initial;
+      }
+
+      .name {
+        font-weight: normal;
+      }
+
+      .price {
+        color: #00b700;
+        font-size: x-large;
+      }
+
+      .cart_button {
+        background-color: white;
+        color: black;
+        border: none;
+
+        .p-button-icon {
+          font-size: x-large;
+        }
+      }
+    }
+  }
+`;
+
 const Card = styled.div`
   transition: 0.3s;
-  padding: 0;
+  padding: 0.5rem;
   font-family: Roboto;
 
   &:hover {
@@ -29,15 +84,14 @@ const ProductsDisplay = ({ items }) => {
   const [store, dispatch] = useStateValue();
 
   return (
-    <div className="shop_container">
+    <ShopContainer>
       <h2 className="shop_title">Shop</h2>
-      <div id="grid_layout" className="p-grid">
+      <div className="p-grid grid_layout">
         {items.map((item) => {
           return (
             <div
               key={item.id}
-              id="card_container"
-              className="p-col-12 p-md-4 p-lg-3"
+              className="p-col-12 p-md-4 p-lg-3 card_container"
             >
               <Card>
                 <Link href={`/items/${item.id}`} passHref>
@@ -67,7 +121,7 @@ const ProductsDisplay = ({ items }) => {
           );
         })}
       </div>
-    </div>
+    </ShopContainer>
   );
 };
 

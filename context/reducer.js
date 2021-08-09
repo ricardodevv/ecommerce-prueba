@@ -12,7 +12,7 @@ const reducer = (state, action) => {
     case "setProducts":
       return {
         ...state,
-        products: [data.products],
+        products: data.products,
       };
     case "addToCart":
       return existingCartItem
