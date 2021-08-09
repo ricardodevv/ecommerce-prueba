@@ -2,11 +2,11 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const FilterStyled = styled.div`
-  width: 15rem;
+  width: 20%;
 
   .container {
     margin: 2rem 1rem;
-    padding: 1em;
+    padding: 1em 1em 2em 1em;
     color: #333e48;
     border: 1px solid #ddd;
     border-bottom-left-radius: 2em;
@@ -29,6 +29,18 @@ const FilterStyled = styled.div`
       background-color: #3f3e401c;
     }
   }
+
+  .filter_options {
+    .category_link {
+      padding: 0.5rem 0;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #4f4c4c38;
+      }
+    }
+  }
 `;
 
 const Filter = () => {
@@ -42,17 +54,17 @@ const Filter = () => {
   return (
     <FilterStyled>
       <div className="container">
-        <h3>Realms</h3>
         <div className="filter_options">
           <h3 className="p-mt-3">Categories</h3>
           {categories.map((category) => (
             <Link
+              key={category.name}
               href={{
                 pathname: `/productList/${category.name}`,
                 query: { category: category.name },
               }}
             >
-              <div>{category.name}</div>
+              <div className="category_link">{category.name}</div>
             </Link>
           ))}
         </div>
