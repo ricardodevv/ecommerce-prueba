@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "babel-plugin-styled-components": "^1.13.2",
+    "firebase": "^8.9.1",
     "next": "11.0.1",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
