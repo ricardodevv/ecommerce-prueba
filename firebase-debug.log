@@ -1,0 +1,25 @@
+[debug] [2021-08-11T01:02:20.329Z] ----------------------------------------------------------------------
+[debug] [2021-08-11T01:02:20.333Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Ricardo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2021-08-11T01:02:20.334Z] CLI Version:   9.16.0
+[debug] [2021-08-11T01:02:20.334Z] Platform:      win32
+[debug] [2021-08-11T01:02:20.334Z] Node Version:  v14.17.0
+[debug] [2021-08-11T01:02:20.336Z] Time:          Tue Aug 10 2021 20:02:20 GMT-0500 (hora de verano central)
+[debug] [2021-08-11T01:02:20.336Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-11T01:02:20.457Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-11T01:02:20.457Z] > authorizing via signed-in user (ricardoaqf.dev@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Ricardo\Desktop\ecommerce-prueba\ecommerce-petshop
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
