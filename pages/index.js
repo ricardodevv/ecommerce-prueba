@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from "react";
-import Image from "next/image";
 import styled from "styled-components";
 import mainpic from "../src/pictures/dogbrown.png";
 import Layout from "../components/Layout";
@@ -57,7 +57,7 @@ const Home = ({ items }) => {
 
   useEffect(() => {
     dispatch(setProducts(items));
-  }, [items]);
+  }, []);
 
   return (
     <Layout pageTitle="Home">
@@ -70,12 +70,7 @@ const Home = ({ items }) => {
               <h2>We have what your buddie needs</h2>
             </span>
             <span className="p-d-none p-d-md-block">
-              <Image
-                src={mainpic}
-                alt="brown dog"
-                height={300}
-                width={300}
-              ></Image>
+              <img src={mainpic} alt="brown dog" />
             </span>
           </div>
         </div>

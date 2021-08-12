@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { dispatchAddToCart } from "../context/dispatchs";
 import food from "../src/pictures/dog-food.jpg";
 import { Button } from "primereact/button";
 import Link from "next/link";
-import Image from "next/image";
 import styled from "styled-components";
 import { useStateValue } from "./StateProvider";
 
@@ -96,13 +96,7 @@ const ProductsDisplay = ({ items }) => {
               <Card>
                 <Link href={`/items/${item.id}`} passHref>
                   <div className="image_container">
-                    <Image
-                      src={food}
-                      alt="item image"
-                      height={600}
-                      width={600}
-                      className="image"
-                    />
+                    <img src={food} alt="item image" className="image" />
                   </div>
                 </Link>
                 <div className="card_details">

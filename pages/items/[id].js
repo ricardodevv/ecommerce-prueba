@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import { Button } from "primereact/button";
 import dogfood from "../../src/pictures/dog-food.jpg";
 import styled from "styled-components";
@@ -143,7 +143,7 @@ const Item = ({ item }) => {
               className="p-d-flex p-flex-column p-flex-md-row"
             >
               <div className="image_container">
-                <Image src={dogfood} alt="item picture" />
+                <img src={dogfood} alt="item picture" />
               </div>
               <div className="item_details">
                 <div className="details_container">
