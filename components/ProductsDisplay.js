@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import { useStateValue } from "./StateProvider";
 
 const ShopContainer = styled.div`
   flex: 1;
@@ -80,6 +81,8 @@ const Card = styled.div`
 `;
 
 const ProductsDisplay = ({ items }) => {
+  const [store, dispatch] = useStateValue();
+
   return (
     <ShopContainer>
       <h2 className="shop_title">Shop</h2>

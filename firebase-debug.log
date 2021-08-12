@@ -1,21 +1,25 @@
-[debug] [2021-08-10T20:57:35.692Z] ----------------------------------------------------------------------
-[debug] [2021-08-10T20:57:35.695Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\sferrer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
-[debug] [2021-08-10T20:57:35.696Z] CLI Version:   9.16.0
-[debug] [2021-08-10T20:57:35.696Z] Platform:      win32
-[debug] [2021-08-10T20:57:35.696Z] Node Version:  v14.17.1
-[debug] [2021-08-10T20:57:35.697Z] Time:          Tue Aug 10 2021 16:57:35 GMT-0400 (hora de Venezuela)
-[debug] [2021-08-10T20:57:35.698Z] ----------------------------------------------------------------------
+[debug] [2021-08-11T01:02:20.329Z] ----------------------------------------------------------------------
+[debug] [2021-08-11T01:02:20.333Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Ricardo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2021-08-11T01:02:20.334Z] CLI Version:   9.16.0
+[debug] [2021-08-11T01:02:20.334Z] Platform:      win32
+[debug] [2021-08-11T01:02:20.334Z] Node Version:  v14.17.0
+[debug] [2021-08-11T01:02:20.336Z] Time:          Tue Aug 10 2021 20:02:20 GMT-0500 (hora de verano central)
+[debug] [2021-08-11T01:02:20.336Z] ----------------------------------------------------------------------
 [debug] 
-[info] i  Firebase optionally collects CLI usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
- 
+[debug] [2021-08-11T01:02:20.457Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-11T01:02:20.457Z] > authorizing via signed-in user (ricardoaqf.dev@gmail.com)
 [info] 
-[info] Visit this URL on this device to log in:
-[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=732097405&redirect_uri=http%3A%2F%2Flocalhost%3A9005
-[info] 
-[info] Waiting for authentication...
-[debug] [2021-08-10T20:57:39.240Z] Error: spawn cmd ENOENT
-    at Process.ChildProcess._handle.onexit (internal/child_process.js:269:19)
-    at onErrorNT (internal/child_process.js:467:16)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)
-[error] 
-[error] Error: An unexpected error has occurred.
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Ricardo\Desktop\ecommerce-prueba\ecommerce-petshop
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+

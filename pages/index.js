@@ -57,7 +57,7 @@ const Home = ({ items }) => {
 
   useEffect(() => {
     dispatch(setProducts(items));
-  }, []);
+  }, [items]);
 
   return (
     <Layout pageTitle="Home">
@@ -84,7 +84,7 @@ const Home = ({ items }) => {
 
         {store.products.length < 1 ? null : (
           <div className="p-d-flex p-flex-column p-flex-md-row container">
-            <Filter className="p-d-inline-flex" />
+            <Filter />
             <ProductsDisplay items={items} />
           </div>
         )}

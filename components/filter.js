@@ -3,6 +3,7 @@ import Link from "next/link";
 
 const FilterStyled = styled.div`
   width: 20%;
+  max-width: 15rem;
 
   .container {
     margin: 2rem 1rem;
@@ -52,7 +53,7 @@ const Filter = () => {
   ];
 
   return (
-    <FilterStyled>
+    <FilterStyled className="p-d-none p-d-md-inline">
       <div className="container">
         <div className="filter_options">
           <h3 className="p-mt-3">Categories</h3>
@@ -63,6 +64,7 @@ const Filter = () => {
                 pathname: `/productList/${category.name}`,
                 query: { category: category.name },
               }}
+              passHref
             >
               <div className="category_link">{category.name}</div>
             </Link>
