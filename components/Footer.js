@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import instagram_icon from "../src/pictures/instagram.png";
 import facebook_icon from "../src/pictures/facebook.png";
 import telegram_icon from "../src/pictures/telegram.png";
@@ -40,28 +40,13 @@ const Footer = () => {
         <h3>Follow us</h3>
         <div className="links_container">
           <div className="social_media_icons">
-            <Image
-              src={instagram_icon}
-              alt="instgram link icon"
-              width={100}
-              height={100}
-            />
+            <img src={instagram_icon} alt="instgram link icon" />
           </div>
           <div className="social_media_icons">
-            <Image
-              src={facebook_icon}
-              alt="facebook link icon"
-              width={100}
-              height={100}
-            />
+            <img src={facebook_icon} alt="facebook link icon" />
           </div>
           <div className="social_media_icons">
-            <Image
-              src={telegram_icon}
-              alt="telegram link icon"
-              width={100}
-              height={100}
-            />
+            <img src={telegram_icon} alt="telegram link icon" />
           </div>
         </div>
       </div>
