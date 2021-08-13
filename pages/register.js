@@ -24,7 +24,7 @@ const Container = styled.div`
 
     .inputFields {
       margin: 1em 0;
-      padding: 1rem 1rem 0rem 0.5rem;
+      padding: 1rem 1rem 0.5rem 0.5rem;
       width: 60%;
       border: 2px solid white;
       transition: 0.3s;
@@ -44,6 +44,21 @@ const Container = styled.div`
   }
 
   .submitBtn {
+    width: 15rem;
+    align-self: center;
+    background-color: white;
+    border: 2px solid black;
+    height: 4rem;
+    border-radius: 3em;
+    transition: 0.2s;
+    font-size: larger;
+    cursor: pointer;
+    margin-top: 1rem;
+
+    &:hover {
+      color: white;
+      background-color: black;
+    }
   }
 
   .register_image {
@@ -142,7 +157,7 @@ const Register = () => {
               {...register("password", { required: true, minLength: 6 })}
             />
 
-            <input className="submitBtn" type="submit" />
+            <input className="submitBtn" type="submit" value="Register" />
           </form>
         </RegisterForm>
         <div className="register_image">
