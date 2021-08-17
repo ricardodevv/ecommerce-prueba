@@ -62,7 +62,8 @@ const Container = styled.div`
   }
 
   .register_image {
-    flex: 1;
+    width: 55%;
+    max-width: 40em;
 
     img {
       width: 100%;
@@ -160,7 +161,7 @@ const Register = () => {
             <input className="submitBtn" type="submit" value="Register" />
           </form>
         </RegisterForm>
-        <div className="register_image">
+        <div className="p-d-none p-d-md-block register_image">
           <img src="/dogsupreme.jpg" alt="dog supreme" />
         </div>
       </Container>
