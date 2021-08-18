@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 //import dogsupreme from "../public/dogsupreme.jpg";
 
 const Container = styled.div`
-  background-color: blueviolet;
   height: 50em;
   display: flex;
   margin-top: 5em;
